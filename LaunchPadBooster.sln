@@ -1,6 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadBooster", "LaunchPadBooster.csproj", "{0b803643-01ec-4e36-ac6d-eb8ba0ab03a8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadBooster", "LaunchPadBooster/LaunchPadBooster.csproj", "{0b803643-01ec-4e36-ac6d-eb8ba0ab03a8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
