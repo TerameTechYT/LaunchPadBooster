@@ -1,7 +1,28 @@
-﻿using UnityEngine.SceneManagement;
+﻿using HarmonyLib;
+using UnityEngine.SceneManagement;
 
 namespace LaunchPadBooster.Events
 {
+  public static class ModEvents
+  {
+    private static readonly object initLock = new();
+    private static bool initialized;
+
+    internal static void Initialize()
+    {
+      lock (initLock)
+      {
+        if (initialized)
+          return;
+
+        var harmony = new Harmony("LaunchPadBooster.Events");
+        harmony.CreateClassProcessor(typeof(ModEventPatches), true).Patch();
+
+        initialized = true;
+      }
+    }
+  }
+
   // Base Scene Events
 
   public class SceneEvent : ModEvent

@@ -1,5 +1,6 @@
 using Assets.Scripts.Networking;
 using Assets.Scripts.Objects;
+using LaunchPadBooster;
 using LaunchPadBooster.Events;
 using LaunchPadBooster.Networking;
 using LaunchPadBooster.Utils;
@@ -89,6 +90,8 @@ namespace LaunchPadBooster
 
     internal void RegisterEvents()
     {
+      ModEvents.Initialize();
+
       ModEventPatches.OnMenuPageEnabled += this.ModEventPatches_OnMenuPageEnabled;
       ModEventPatches.OnMenuPageDisabled += this.ModEventPatches_OnMenuPageDisabled;
       SceneManager.sceneLoaded += this.SceneManager_sceneLoaded;
