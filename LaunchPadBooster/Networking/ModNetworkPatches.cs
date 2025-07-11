@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using Assets.Scripts;
-using Assets.Scripts.Atmospherics;
 using Assets.Scripts.Networking;
+using Assets.Scripts.Util;
 using HarmonyLib;
+using LaunchPadBooster.Utils;
 
 namespace LaunchPadBooster.Networking
 {
@@ -110,6 +111,51 @@ namespace LaunchPadBooster.Networking
       matcher.InsertAndAdvance(new CodeInstruction(jumpinst));
 
       return matcher.Instructions();
+    }
+  }
+
+  static class ModNetworkCompatibilityPatch
+  {
+    public static void RunPatch(Harmony harmony)
+    {
+      // This is an attempt to maintain compatibility with other mods that patch network handling by bypassing the original implementation
+
+      var method = ReflectionUtils.Method(() => NetworkBase.DeserializeReceivedData(default, default));
+      var patches = Harmony.GetPatchInfo(method);
+      if (patches == null)
+        return;
+
+      var transpiler = new HarmonyMethod(ReflectionUtils.Method(() => Patch(default)));
+      foreach (var prefix in patches.Prefixes)
+      {
+        harmony.Patch(prefix.PatchMethod, transpiler: transpiler);
+      }
+    }
+
+    static IEnumerable<CodeInstruction> Patch(IEnumerable<CodeInstruction> instructions)
+    {
+      var matcher = new CodeMatcher(instructions);
+
+      // look for set of whitelisted types
+      matcher.MatchStartForward(new CodeInstruction(OpCodes.Newobj, ReflectionUtils.Constructor(() => new HashSet<Type>())));
+      if (matcher.IsValid)
+      {
+        matcher.Advance(1);
+        matcher.InsertAndAdvance(
+          new CodeInstruction(OpCodes.Dup), // dup hashset
+          CodeInstruction.Call(() => AddModMessageTypes(default)) // add mod messages
+        );
+      }
+
+      return matcher.Instructions();
+    }
+
+    static void AddModMessageTypes(HashSet<Type> types)
+    {
+      foreach (var mod in Mod.AllMods)
+      {
+        types.AddRange(mod.NetworkMessageTypes);
+      }
     }
   }
 }
