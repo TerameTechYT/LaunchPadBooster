@@ -77,6 +77,27 @@ namespace LaunchPadBooster.Utils
         return;
       structure.BuildStates[index].Tool.ToolExit = tool;
     }
+    
+    public static void AddToMultiConstructorKit(this Structure structure, string kitName, int order = -1)
+    {
+      if (!CanSetBuildTool(structure, kitName, 0, out _, out var tool))
+        return;
+      
+      if (tool is not MultiConstructor itemKit || itemKit == null)
+        return;
+
+      if (!itemKit.Constructables.Contains(structure))
+      {
+        // Clamp order to a valid insert position; -1 or any out-of-range becomes "append".
+        int insertIndex = (order < 0 || order > itemKit.Constructables.Count)
+          ? itemKit.Constructables.Count
+          : order;
+
+        itemKit.Constructables.Insert(insertIndex, structure);
+      }
+
+      structure.BuildStates[0].Tool.ToolExit = tool;
+    }
 
     // This should only be used prior to prefab load in order to set references
     // Use Prefab.Find<T> after load
