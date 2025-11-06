@@ -16,8 +16,8 @@
 
 		<OutputPath>$(SolutionDir)bin\$(Configuration)</OutputPath>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/StationeersLaunchPad/StationeersLaunchPad</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/StationeersLaunchPad/StationeersLaunchPad</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/StationeersLaunchPad/LaunchPadBooster</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/StationeersLaunchPad/LaunchPadBooster</RepositoryUrl>
 		<PackageLicenseFile>$(SolutionDir)LICENSE.md</PackageLicenseFile>
 		<PackageReadmeFile>$(SolutionDir)README.md</PackageReadmeFile>
 
