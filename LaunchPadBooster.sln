@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11201.2 d18.0
+VisualStudioVersion = 18.0.11201.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchPadBooster", "LaunchPadBooster\LaunchPadBooster.csproj", "{0B803643-01EC-4E36-AC6D-EB8BA0AB03A8}"
 EndProject
@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".LBP", ".LBP", "{400F6713-B
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		LICENSE.md = LICENSE.md
+		LICENSE = LICENSE
 		README.md = README.md
 		Stationeers.VS.props = Stationeers.VS.props
 		Stationeers.VS.References.props = Stationeers.VS.References.props
